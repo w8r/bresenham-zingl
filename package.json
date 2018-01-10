@@ -1,0 +1,31 @@
+{
+  "name": "bresenham-zingl",
+  "version": "0.0.1",
+  "description": "Bresenham rasterisation algorithms by Alois Zingl",
+  "main": "dist/bresenham.js",
+  "scripts": {
+    "start": "serve & rollup -cw",
+    "build": "rollup -c",
+    "prepublish": "npm run build",
+    "doc": "dox -S < index.js | doxme"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w8r/bresenham-zingl.git"
+  },
+  "keywords": [
+    "bresenham"
+  ],
+  "author": "Alois Zingl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/w8r/bresenham-zingl/issues"
+  },
+  "homepage": "https://github.com/w8r/bresenham-zingl#readme",
+  "devDependencies": {
+    "dox": "^0.9.0",
+    "doxme": "^1.8.2",
+    "rollup": "^0.53.4",
+    "serve": "^6.4.4"
+  }
+}
