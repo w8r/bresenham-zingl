@@ -12,6 +12,13 @@ Port of [C code](https://gist.github.com/w8r/2f57de439a736b0a079b70ed24c9a246) b
 npm i -S bresenham-zingl
 ```
 
+```js
+import { line, circle, quadBezier } from 'bresenham-zingl';
+
+quadBezier(0,0, 10, 10, 0, 10, (x, y) => console.log(x, y)); // 0,0, ...
+
+```
+
 ## [Demo](https://w8r.github.io/bresenham-zingl/demo/)
 
 ## API
