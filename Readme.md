@@ -1,5 +1,7 @@
 # Bresenham rasterisation function by Alois Zingl
 
+![Screenshot](https://w8r.github.io/demo/bresenham-zingl.png)
+
 Port of [C code](https://gist.github.com/w8r/2f57de439a736b0a079b70ed24c9a246) by Alois Zingl from this paper
 
 [ALOIS ZINGL: "A Rasterizing Algorithm for Drawing Curves", 8 November 2012 (2012-11-08), pages 1 - 81](https://github.com/Traumflug/Teacup_Firmware/raw/master/research/A_Rasterizing_Algorithm_for_Drawing_Curves_-_Alois_Zingl_2012.pdf)
