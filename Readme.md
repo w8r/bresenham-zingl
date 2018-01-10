@@ -1,4 +1,4 @@
-# Bresenham rasterisation function by Alois Zingl
+# Bresenham rasterisation functions by Alois Zingl
 
 ![Screenshot](https://w8r.github.io/bresenham-zingl/demo/bresenham-zingl.png)
 
