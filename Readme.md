@@ -23,7 +23,7 @@ quadBezier(0,0, 10, 10, 0, 10, (x, y) => console.log(x, y)); // 0,0, ...
 
 ## API
 
-These are two callbacks you will have to provide in order to make use of the output:
+### User-defined callbacks
 
 ### `setPixel(x, y)`
 
@@ -50,8 +50,6 @@ Callback that would also receive the alpha value for the pixel
 | `y`       | number |             |
 | `alpha`   | number |             |
 
-
-
 ### `line(x0, y0, x1, y1, setPixel)`
 
 Line segment rasterisation
@@ -68,25 +66,133 @@ Line segment rasterisation
 
 
 
-### `ellipse(xm, ym, a, b, setPixel)`
+### `lineAA(x0, y0, x1, y1, setPixelAA)`
 
-Draws ellipse
+Draw a black (0) anti-aliased line on white (255) background
+
+### Parameters
+
+| parameter    | type          | description |
+| ------------ | ------------- | ----------- |
+| `x0`         | number        |             |
+| `y0`         | number        |             |
+| `x1`         | number        |             |
+| `y1`         | number        |             |
+| `setPixelAA` | setPixelAlpha |             |
+
+
+
+**Returns** `number`,
+
+
+### `lineWidth(x0, y0, x1, y1, wd, setPixel)`
+
+Plot an anti-aliased line of width wd
 
 ### Parameters
 
 | parameter  | type     | description |
 | ---------- | -------- | ----------- |
-| `xm`       | number   |             |
-| `ym`       | number   |             |
+| `x0`       | number   |             |
+| `y0`       | number   |             |
+| `x1`       | number   |             |
+| `y1`       | number   |             |
+| `wd`       | number   |             |
+| `setPixel` | setPixel |             |
+
+
+
+### `quadRationalBezierSegment(x0, y0, x1, y1, x2, y2, w, setPixel)`
+
+plot a limited rational Bezier segment, squared weight
+
+### Parameters
+
+| parameter  | type     | description |
+| ---------- | -------- | ----------- |
+| `x0`       | number   |             |
+| `y0`       | number   |             |
+| `x1`       | number   |             |
+| `y1`       | number   |             |
+| `x2`       | number   |             |
+| `y2`       | number   |             |
+| `w`        | number   |             |
+| `setPixel` | setPixel |             |
+
+
+
+### `quadRationalBezierSegmentAA(x0, y0, x1, y1, x2, y2, w, setPixelAA)`
+
+draw an anti-aliased rational quadratic Bezier segment, squared weight
+
+### Parameters
+
+| parameter    | type          | description |
+| ------------ | ------------- | ----------- |
+| `x0`         | number        |             |
+| `y0`         | number        |             |
+| `x1`         | number        |             |
+| `y1`         | number        |             |
+| `x2`         | number        |             |
+| `y2`         | number        |             |
+| `w`          | number        |             |
+| `setPixelAA` | setPixelAlpha |             |
+
+
+
+### `rotatedEllipse(x, y, a, b, angle, setPixel)`
+
+Plot ellipse rotated by angle (radian)
+
+### Parameters
+
+| parameter  | type     | description |
+| ---------- | -------- | ----------- |
+| `x`        | number   |             |
+| `y`        | number   |             |
 | `a`        | number   |             |
 | `b`        | number   |             |
+| `angle`    | number   |             |
+| `setPixel` | setPixel |             |
+
+
+
+### `rotatedEllipseRect(x0, y0, x1, y1, zd, setPixel)`
+
+Rectangle encloMath.sing the ellipse, integer rotation angle
+
+### Parameters
+
+| parameter  | type     | description |
+| ---------- | -------- | ----------- |
+| `x0`       | number   |             |
+| `y0`       | number   |             |
+| `x1`       | number   |             |
+| `y1`       | number   |             |
+| `zd`       | number   |             |
+| `setPixel` | setPixel |             |
+
+
+
+### `ellipseRect(x0, y0, x1, y1, setPixel)`
+
+Rectangular parameter encloMath.sing the ellipse
+
+### Parameters
+
+| parameter  | type     | description |
+| ---------- | -------- | ----------- |
+| `x0`       | number   |             |
+| `y0`       | number   |             |
+| `x1`       | number   |             |
+| `y1`       | number   |             |
 | `setPixel` | setPixel |             |
 
 
 
 ### `circle(xm, ym, r, setPixel)`
 
-Circel rasterisation
+Circle rasterisation
 
 ### Parameters
 
@@ -99,7 +205,22 @@ Circel rasterisation
 
 
 
-### `quadBezierSegment(x0, y0, x1, y1, x2, y2, setPixel)`
+### `circleAA(xm, ym, r, setPixelAA)`
+
+Draw a black anti-aliased circle on white background
+
+### Parameters
+
+| parameter    | type          | description |
+| ------------ | ------------- | ----------- |
+| `xm`         | number        |             |
+| `ym`         | number        |             |
+| `r`          | number        |             |
+| `setPixelAA` | setPixelAlpha |             |
+
+
+
+### `quadBezierSegment$1(x0, y0, x1, y1, x2, y2, setPixel)`
 
 plot a limited quadratic Bezier segment
 
@@ -135,129 +256,21 @@ Plot any quadratic Bezier curve with anti-alias
 
 
 
-### `quadBezier(x0, y0, x1, y1, x2, y2, setPixel)`
+### `quadBezierSegmentAA(x0, y0, x1, y1, x2, y2, setPixelAA)`
 
-Plot any quadratic Bezier curve
-
-### Parameters
-
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `x2`       | number   |             |
-| `y2`       | number   |             |
-| `setPixel` | setPixel |             |
-
-
-
-### `quadRationalBezierSegment(x0, y0, x1, y1, x2, y2, w, setPixel)`
-
-plot a limited rational Bezier segment, squared weight
+Draw an limited anti-aliased quadratic Bezier segment
 
 ### Parameters
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `x2`       | number   |             |
-| `y2`       | number   |             |
-| `w`        | number   |             |
-| `setPixel` | setPixel |             |
-
-
-
-### `quadRationalBezier(x0, y0, x1, y1, x2, y2, w, setPixel)`
-
-plot any quadratic rational Bezier curve
-
-### Parameters
-
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `x2`       | number   |             |
-| `y2`       | number   |             |
-| `w`        | number   |             |
-| `setPixel` | setPixel |             |
-
-
-
-### `rotatedEllipse(x, y, a, b, angle, setPixel)`
-
-Plot ellipse rotated by angle (radian)
-
-### Parameters
-
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x`        | number   |             |
-| `y`        | number   |             |
-| `a`        | number   |             |
-| `b`        | number   |             |
-| `angle`    | number   |             |
-| `setPixel` | setPixel |             |
-
-
-
-### `rotatedEllipseRect(x0, y0, x1, y1, zd, setPixel)`
-
-Rectangle enclosing the ellipse, integer rotation angle
-
-### Parameters
-
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `zd`       | number   |             |
-| `setPixel` | setPixel |             |
-
-
-
-### `ellipseRect(x0, y0, x1, y1, setPixel)`
-
-Rectangular parameter enclosing the ellipse
-
-### Parameters
-
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `setPixel` | setPixel |             |
-
-
-
-### `cubicBezierSeg(x0, y0, x1, y1, x2, y2, x3, y3, setPixel)`
-
-Plot limited cubic Bezier segment
-
-### Parameters
-
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `x2`       | number   |             |
-| `y2`       | number   |             |
-| `x3`       | number   |             |
-| `y3`       | number   |             |
-| `setPixel` | setPixel |             |
+| parameter    | type          | description |
+| ------------ | ------------- | ----------- |
+| `x0`         | number        |             |
+| `y0`         | number        |             |
+| `x1`         | number        |             |
+| `y1`         | number        |             |
+| `x2`         | number        |             |
+| `y2`         | number        |             |
+| `setPixelAA` | setPixelAlpha |             |
 
 
 
@@ -277,94 +290,6 @@ plot any cubic Bezier curve
 | `y2`       | number   |             |
 | `x3`       | number   |             |
 | `y3`       | number   |             |
-| `setPixel` | setPixel |             |
-
-
-
-### `lineAA(x0, y0, x1, y1, setPixelAA)`
-
-Draw a black (0) anti-aliased line on white (255) background
-
-### Parameters
-
-| parameter    | type          | description |
-| ------------ | ------------- | ----------- |
-| `x0`         | number        |             |
-| `y0`         | number        |             |
-| `x1`         | number        |             |
-| `y1`         | number        |             |
-| `setPixelAA` | setPixelAlpha |             |
-
-
-
-**Returns** `number`,
-
-
-### `circleAA(xm, ym, r, setPixelAA)`
-
-Draw a black anti-aliased circle on white background
-
-### Parameters
-
-| parameter    | type          | description |
-| ------------ | ------------- | ----------- |
-| `xm`         | number        |             |
-| `ym`         | number        |             |
-| `r`          | number        |             |
-| `setPixelAA` | setPixelAlpha |             |
-
-
-
-### `quadBezierSegmentAA(x0, y0, x1, y1, x2, y2, setPixelAA)`
-
-Draw an limited anti-aliased quadratic Bezier segment
-
-### Parameters
-
-| parameter    | type          | description |
-| ------------ | ------------- | ----------- |
-| `x0`         | number        |             |
-| `y0`         | number        |             |
-| `x1`         | number        |             |
-| `y1`         | number        |             |
-| `x2`         | number        |             |
-| `y2`         | number        |             |
-| `setPixelAA` | setPixelAlpha |             |
-
-
-
-### `quadRationalBezierSegmentAA(x0, y0, x1, y1, x2, y2, w, setPixelAA)`
-
-draw an anti-aliased rational quadratic Bezier segment, squared weight
-
-### Parameters
-
-| parameter    | type          | description |
-| ------------ | ------------- | ----------- |
-| `x0`         | number        |             |
-| `y0`         | number        |             |
-| `x1`         | number        |             |
-| `y1`         | number        |             |
-| `x2`         | number        |             |
-| `y2`         | number        |             |
-| `w`          | number        |             |
-| `setPixelAA` | setPixelAlpha |             |
-
-
-
-### `lineWidth(x0, y0, x1, y1, wd, setPixel)`
-
-Plot an anti-aliased line of width wd
-
-### Parameters
-
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `wd`       | number   |             |
 | `setPixel` | setPixel |             |
 
 

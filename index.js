@@ -5,13 +5,15 @@
  */
 
 /**
- * @typedef {function} setPixel
+ * Use that callback to fill the pixel on canvas.
+ * @callback setPixel
  * @param {number} x
  * @param {number} y
  */
 
 /**
- * @typedef {function} setPixelAlpha
+ * Callback that would also receive the alpha value for the pixel
+ * @callback setPixelAlpha
  * @param {number} x
  * @param {number} y
  * @param {number} alpha

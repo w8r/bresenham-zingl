@@ -1031,13 +1031,15 @@ function cubicBezier(x0, y0, x1, y1, x2, y2, x3, y3, setPixel) {
  */
 
 /**
- * @typedef {function} setPixel
+ * Use that callback to fill the pixel on canvas.
+ * @callback setPixel
  * @param {number} x
  * @param {number} y
  */
 
 /**
- * @typedef {function} setPixelAlpha
+ * Callback that would also receive the alpha value for the pixel
+ * @callback setPixelAlpha
  * @param {number} x
  * @param {number} y
  * @param {number} alpha
