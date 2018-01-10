@@ -123,6 +123,17 @@ function assert(d, m) {
   if (!d) { throw new Error(m); }
 }
 
+/**
+ * plot any quadratic rational Bezier curve
+ * @param  {number} x0
+ * @param  {number} y0
+ * @param  {number} x1
+ * @param  {number} y1
+ * @param  {number} x2
+ * @param  {number} y2
+ * @param  {number} w
+ * @param  {setPixel} setPixel
+ */
 function quadRationalBezier(x0, y0, x1, y1, x2, y2, w, setPixel) {
   var x = x0 - 2 * x1 + x2,
       y = y0 - 2 * y1 + y2;
@@ -359,6 +370,14 @@ function quadRationalBezierSegmentAA(x0, y0, x1, y1, x2, y2, w, setPixelAA) {
   lineAA(x0, y0, x2, y2, setPixelAA); /* plot remaining needle to end */
 }
 
+/**
+ * Draws ellipse
+ * @param  {number} xm
+ * @param  {number} ym
+ * @param  {number} a
+ * @param  {number} b
+ * @param  {setPixel} setPixel
+ */
 function ellipse(xm, ym, a, b, setPixel) {
   var x = -a, y = 0; /* II. quadrant from bottom left to top right */
   var e2 = b * b, err = x * (2 * e2 + x) + e2; /* error of 1.step */
@@ -546,6 +565,16 @@ function circleAA(xm, ym, r, setPixelAA) {
   } while (x < 0);
 }
 
+/**
+ * Plot any quadratic Bezier curve
+ * @param  {number} x0
+ * @param  {number} y0
+ * @param  {number} x1
+ * @param  {number} y1
+ * @param  {number} x2
+ * @param  {number} y2
+ * @param  {setPixel} setPixel
+ */
 function quadBezier(x0, y0, x1, y1, x2, y2, setPixel) {
   var x = x0 - x1,
       y = y0 - y1;
@@ -779,6 +808,18 @@ function quadBezierSegmentAA(x0, y0, x1, y1, x2, y2, setPixelAA) {
   lineAA(x0, y0, x2, y2, setPixelAA); /* plot remaining needle to end */
 }
 
+/**
+ * Plot limited cubic Bezier segment
+ * @param  {number} x0
+ * @param  {number} y0
+ * @param  {number} x1
+ * @param  {number} y1
+ * @param  {number} x2
+ * @param  {number} y2
+ * @param  {number} x3
+ * @param  {number} y3
+ * @param  {setPixel} setPixel
+ */
 function cubicBezierSegment(x0, y0, x1, y1, x2, y2, x3, y3, setPixel) {
   var f, fx, fy, leg = 1;
   var sx = x0 < x3 ? 1 : -1,
