@@ -199,6 +199,39 @@ Plot ellipse rotated by angle (radian)
 
 
 
+### `rotatedEllipseRect(x0, y0, x1, y1, zd, setPixel)`
+
+Rectangle enclosing the ellipse, integer rotation angle
+
+### Parameters
+
+| parameter  | type     | description |
+| ---------- | -------- | ----------- |
+| `x0`       | number   |             |
+| `y0`       | number   |             |
+| `x1`       | number   |             |
+| `y1`       | number   |             |
+| `zd`       | number   |             |
+| `setPixel` | setPixel |             |
+
+
+
+### `ellipseRect(x0, y0, x1, y1, setPixel)`
+
+Rectangular parameter enclosing the ellipse
+
+### Parameters
+
+| parameter  | type     | description |
+| ---------- | -------- | ----------- |
+| `x0`       | number   |             |
+| `y0`       | number   |             |
+| `x1`       | number   |             |
+| `y1`       | number   |             |
+| `setPixel` | setPixel |             |
+
+
+
 ### `cubicBezierSeg(x0, y0, x1, y1, x2, y2, x3, y3, setPixel)`
 
 Plot limited cubic Bezier segment
@@ -324,6 +357,7 @@ Plot an anti-aliased line of width wd
 | `y1`       | number   |             |
 | `wd`       | number   |             |
 | `setPixel` | setPixel |             |
+
 
 ## License
 

@@ -1,4 +1,7 @@
+const buble = require('rollup-plugin-buble');
+
 module.exports = {
+  plugins: [buble()],
   input: './index.js',
   output: {
     file:   'dist/bresenham.js',
