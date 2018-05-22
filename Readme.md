@@ -220,7 +220,7 @@ Draw a black anti-aliased circle on white background
 
 
 
-### `quadBezierSegment$1(x0, y0, x1, y1, x2, y2, setPixel)`
+### `quadBezierSegment(x0, y0, x1, y1, x2, y2, setPixel)`
 
 plot a limited quadratic Bezier segment
 
@@ -291,6 +291,24 @@ plot any cubic Bezier curve
 | `x3`       | number   |             |
 | `y3`       | number   |             |
 | `setPixel` | setPixel |             |
+
+### `cubicBezierAA(x0, y0, x1, y1, x2, y2, x3, y3, setPixelAA)`
+
+plot any cubic Bezier curve
+
+### Parameters
+
+| parameter  | type          | description |
+| ---------- | ------------- | ----------- |
+| `x0`       | number        |             |
+| `y0`       | number        |             |
+| `x1`       | number        |             |
+| `y1`       | number        |             |
+| `x2`       | number        |             |
+| `y2`       | number        |             |
+| `x3`       | number        |             |
+| `y3`       | number        |             |
+| `setPixel` | setPixelAlpha |             |
 
 
 ## License
