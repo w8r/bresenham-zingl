@@ -1,6 +1,6 @@
 {
   "name": "bresenham-zingl",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bresenham rasterisation algorithms by Alois Zingl",
   "main": "dist/bresenham.js",
   "module": "index",
