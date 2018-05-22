@@ -1057,19 +1057,7 @@ function cubicBezierSegmentAA(x0, y0, x1, y1, x2, y2, x3, y3, setPixelAA) {
    lineAA(x0,y0, x3,y3, setPixelAA);
 }
 
-/**
- * plot any cubic Bezier curve
- * @param  {number} x0
- * @param  {number} y0
- * @param  {number} x1
- * @param  {number} y1
- * @param  {number} x2
- * @param  {number} y2
- * @param  {number} x3
- * @param  {number} y3
- * @param  {setPixel} setPixel
- */
-function cubicBezier(x0, y0, x1, y1, x2, y2, x3, y3, setPixel) {
+function cubicBezierGeneral(x0, y0, x1, y1, x2, y2, x3, y3, segment, setPixel) {
   var n = 0, i = 0;
   var xc = x0 + x1 - x2 - x3,
       xa = xc - 4 * (x1 - x2);
@@ -1132,13 +1120,46 @@ function cubicBezier(x0, y0, x1, y1, x2, y2, x3, y3, setPixel) {
       fy2 *= fy0;
     }
     if (x0 != x3 || y0 != y3) /* segment t1 - t2 */
-      { cubicBezierSegment(x0, y0, x0 + fx1, y0 + fy1, x0 + fx2, y0 + fy2, x3, y3, setPixel); }
+      { segment(x0, y0, x0 + fx1, y0 + fy1, x0 + fx2, y0 + fy2, x3, y3, setPixel); }
     x0 = x3;
     y0 = y3;
     fx0 = fx3;
     fy0 = fy3;
     t1 = t2;
   }
+}
+
+/**
+ * plot any cubic Bezier curve
+ * @param  {number} x0
+ * @param  {number} y0
+ * @param  {number} x1
+ * @param  {number} y1
+ * @param  {number} x2
+ * @param  {number} y2
+ * @param  {number} x3
+ * @param  {number} y3
+ * @param  {setPixel} setPixel
+ */
+function cubicBezier(x0, y0, x1, y1, x2, y2, x3, y3, setPixel) {
+  cubicBezierGeneral(x0, y0, x1, y1, x2, y2, x3, y3, cubicBezierSegment, setPixel);
+}
+
+
+/**
+ * plot any cubic Bezier curve
+ * @param  {number} x0
+ * @param  {number} y0
+ * @param  {number} x1
+ * @param  {number} y1
+ * @param  {number} x2
+ * @param  {number} y2
+ * @param  {number} x3
+ * @param  {number} y3
+ * @param  {setPixelAlpha} setPixelAA
+ */
+function cubicBezierAA(x0, y0, x1, y1, x2, y2, x3, y3, setPixelAA) {
+  cubicBezierGeneral(x0, y0, x1, y1, x2, y2, x3, y3, cubicBezierSegmentAA, setPixelAA);
 }
 
 /**
@@ -1181,6 +1202,7 @@ exports.quadRationalBezierSegmentAA = quadRationalBezierSegmentAA;
 exports.cubicBezierSegment = cubicBezierSegment;
 exports.cubicBezierSegmentAA = cubicBezierSegmentAA;
 exports.cubicBezier = cubicBezier;
+exports.cubicBezierAA = cubicBezierAA;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

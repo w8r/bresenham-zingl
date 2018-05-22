@@ -12,8 +12,10 @@ const h = canvas.height = screenHeight * devicePixelRatio;
 canvas.style.width  = screenWidth + 'px';
 canvas.style.height = screenHeight + 'px';
 
-function scaleGraphToFitBounds(G, bounds) {
+function scaleGraphToFitBounds(G, bounds, margin) {
   var min = Math.min, max = Math.max;
+  bounds[0] += margin; bounds[1] += margin;
+  bounds[2] -= margin; bounds[3] -= margin;
   var bbox = getBounds(G);
   var cx = (bounds[0] + bounds[2]) / 2,
       cy = (bounds[1] + bounds[3]) / 2,
@@ -33,6 +35,7 @@ function scaleGraphToFitBounds(G, bounds) {
     n.x = cx + ((n.x + tx) - cx) * scale;
     n.y = cy + ((n.y + ty) - cy) * scale;
   });
+  return G;
 }
 
 function getBounds(g) {
@@ -89,8 +92,6 @@ function render() {
   // ctx.closePath();
 
   // nodes;
-
-
   ctx.beginPath();
   ctx.fillStyle   = 'orange';
   ctx.strokeStyle = '#333333';
@@ -110,12 +111,16 @@ function render() {
     ctx.arc(n.x, n.y, n.r, 0, 2 * Math.PI, false);
   });
 
+  const m = w / 5;
+  console.log(w / 4);
+  bresenham.cubicBezierAA(0 + m,     400, 0 + m, 0, w - m, 0, w - m,     400, setPixelAA);
+  bresenham.cubicBezierAA(0 + m, h - 400, 0 + m, h, w - m, h, w - m, h - 400, setPixelAA);
   console.timeEnd('render');
 }
 
 
 d3.json('data.json').then((json) => {
-  data = json;
+  data = scaleGraphToFitBounds(json, [0,0,w, h], 50);
   nodesMap = data.nodes.reduce((a, n) => {
     a[n.id] = n;
     return a;
