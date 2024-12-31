@@ -17,7 +17,7 @@
     "start": "vite dev",
     "build": "vite build",
     "pprepublish": "npm run build",
-    "doc": "dox -S < dist/bresenham.js | doxme",
+    "doc": "dox -S < dist/index.umd.js | doxme",
     "lint": "eslint src"
   },
   "repository": {
