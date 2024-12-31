@@ -1,14 +1,22 @@
 {
   "name": "bresenham-zingl",
-  "version": "0.1.1",
+  "version": "0.2.0",
+  "type": "module",
   "description": "Bresenham rasterisation algorithms by Alois Zingl",
-  "main": "dist/bresenham.js",
-  "module": "index",
-  "jsnext:main": "index",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "browser": "dist/index.js",
+  "unpkg": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
-    "start": "serve & rollup -cw",
-    "build": "rollup -c",
-    "prepublish": "npm run build",
+    "start": "vite dev",
+    "build": "vite build",
+    "pprepublish": "npm run build",
     "doc": "dox -S < dist/bresenham.js | doxme",
     "lint": "eslint src"
   },
@@ -29,9 +37,6 @@
     "dox": "^0.9.0",
     "doxme": "^1.8.2",
     "eslint": "^4.15.0",
-    "rollup": "^0.53.4",
-    "rollup-plugin-buble": "^0.18.0",
-    "serve": "^6.4.4",
-    "uglify-js": "^3.3.5"
+    "vite": "^6.0.6"
   }
 }
