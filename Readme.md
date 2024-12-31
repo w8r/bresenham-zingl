@@ -1,6 +1,6 @@
 # Bresenham rasterisation functions by Alois Zingl
 
-![Screenshot](https://w8r.github.io/bresenham-zingl/demo/bresenham-zingl.png)
+![Screenshot](https://w8r.github.io/bresenham-zingl/src/bresenham-zingl.png)
 
 Port of [C code](https://gist.github.com/w8r/2f57de439a736b0a079b70ed24c9a246) by Alois Zingl from this paper
 
@@ -13,10 +13,9 @@ npm i -S bresenham-zingl
 ```
 
 ```js
-import { line, circle, quadBezier } from 'bresenham-zingl';
+import { line, circle, quadBezier } from "bresenham-zingl";
 
-quadBezier(0,0, 10, 10, 0, 10, (x, y) => console.log(x, y)); // 0,0, ...
-
+quadBezier(0, 0, 10, 10, 0, 10, (x, y) => console.log(x, y)); // 0,0, ...
 ```
 
 ## [Demo](https://w8r.github.io/bresenham-zingl/demo/)
@@ -35,8 +34,6 @@ Use that callback to fill the pixel on canvas.
 | --------- | ------ | ----------- |
 | `x`       | number |             |
 | `y`       | number |             |
-
-
 
 ### `setPixelAlpha(x, y, alpha)`
 
@@ -64,8 +61,6 @@ Line segment rasterisation
 | `y1`       | number   |             |
 | `setPixel` | setPixel |             |
 
-
-
 ### `lineAA(x0, y0, x1, y1, setPixelAA)`
 
 Draw a black (0) anti-aliased line on white (255) background
@@ -80,10 +75,7 @@ Draw a black (0) anti-aliased line on white (255) background
 | `y1`         | number        |             |
 | `setPixelAA` | setPixelAlpha |             |
 
-
-
 **Returns** `number`,
-
 
 ### `lineWidth(x0, y0, x1, y1, wd, setPixel)`
 
@@ -99,8 +91,6 @@ Plot an anti-aliased line of width wd
 | `y1`       | number   |             |
 | `wd`       | number   |             |
 | `setPixel` | setPixel |             |
-
-
 
 ### `quadRationalBezierSegment(x0, y0, x1, y1, x2, y2, w, setPixel)`
 
@@ -119,8 +109,6 @@ plot a limited rational Bezier segment, squared weight
 | `w`        | number   |             |
 | `setPixel` | setPixel |             |
 
-
-
 ### `quadRationalBezierSegmentAA(x0, y0, x1, y1, x2, y2, w, setPixelAA)`
 
 draw an anti-aliased rational quadratic Bezier segment, squared weight
@@ -138,8 +126,6 @@ draw an anti-aliased rational quadratic Bezier segment, squared weight
 | `w`          | number        |             |
 | `setPixelAA` | setPixelAlpha |             |
 
-
-
 ### `rotatedEllipse(x, y, a, b, angle, setPixel)`
 
 Plot ellipse rotated by angle (radian)
@@ -154,8 +140,6 @@ Plot ellipse rotated by angle (radian)
 | `b`        | number   |             |
 | `angle`    | number   |             |
 | `setPixel` | setPixel |             |
-
-
 
 ### `rotatedEllipseRect(x0, y0, x1, y1, zd, setPixel)`
 
@@ -172,8 +156,6 @@ Rectangle encloMath.sing the ellipse, integer rotation angle
 | `zd`       | number   |             |
 | `setPixel` | setPixel |             |
 
-
-
 ### `ellipseRect(x0, y0, x1, y1, setPixel)`
 
 Rectangular parameter encloMath.sing the ellipse
@@ -188,8 +170,6 @@ Rectangular parameter encloMath.sing the ellipse
 | `y1`       | number   |             |
 | `setPixel` | setPixel |             |
 
-
-
 ### `circle(xm, ym, r, setPixel)`
 
 Circle rasterisation
@@ -203,8 +183,6 @@ Circle rasterisation
 | `r`        | number   |             |
 | `setPixel` | setPixel |             |
 
-
-
 ### `circleAA(xm, ym, r, setPixelAA)`
 
 Draw a black anti-aliased circle on white background
@@ -217,8 +195,6 @@ Draw a black anti-aliased circle on white background
 | `ym`         | number        |             |
 | `r`          | number        |             |
 | `setPixelAA` | setPixelAlpha |             |
-
-
 
 ### `quadBezierSegment(x0, y0, x1, y1, x2, y2, setPixel)`
 
@@ -236,8 +212,6 @@ plot a limited quadratic Bezier segment
 | `y2`       | number   |             |
 | `setPixel` | setPixel |             |
 
-
-
 ### `quadBezierAA(x0, y0, x1, y1, x2, y2, setPixelAA)`
 
 Plot any quadratic Bezier curve with anti-alias
@@ -254,8 +228,6 @@ Plot any quadratic Bezier curve with anti-alias
 | `y2`         | number        |             |
 | `setPixelAA` | setPixelAlpha |             |
 
-
-
 ### `quadBezierSegmentAA(x0, y0, x1, y1, x2, y2, setPixelAA)`
 
 Draw an limited anti-aliased quadratic Bezier segment
@@ -271,8 +243,6 @@ Draw an limited anti-aliased quadratic Bezier segment
 | `x2`         | number        |             |
 | `y2`         | number        |             |
 | `setPixelAA` | setPixelAlpha |             |
-
-
 
 ### `cubicBezier(x0, y0, x1, y1, x2, y2, x3, y3, setPixel)`
 
@@ -309,7 +279,6 @@ plot any cubic Bezier curve
 | `x3`       | number        |             |
 | `y3`       | number        |             |
 | `setPixel` | setPixelAlpha |             |
-
 
 ## License
 
