@@ -19,10 +19,10 @@
  * @param {number} alpha
  */
 
-export * from './src/line';
+export * from "./line";
 
-export * from './src/ellipse';
+export * from "./ellipse";
 
-export * from './src/circle';
+export * from "./circle";
 
-export * from './src/bezier';
+export * from "./bezier";
