@@ -88,7 +88,14 @@ export function rotatedEllipse(
  * @param  {number} zd
  * @param  {setPixel} setPixel
  */
-export function rotatedEllipseRect(x0, y0, x1, y1, zd, setPixel) {
+export function rotatedEllipseRect(
+  x0: number,
+  y0: number,
+  x1: number,
+  y1: number,
+  zd: number,
+  setPixel: setPixelFn
+) {
   let xd = x1 - x0;
   let yd = y1 - y0;
   let w = xd * yd;

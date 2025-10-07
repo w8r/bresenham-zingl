@@ -1,11 +1,14 @@
+import { setPixelAlphaFn, setPixelFn } from "./types";
+
 /**
  * Circle rasterisation
- * @param  {number} xm
- * @param  {number} ym
- * @param  {number} r
- * @param  {setPixel} setPixel
  */
-export function circle(xm: number, ym: number, r: number, setPixel) {
+export function circle(
+  xm: number,
+  ym: number,
+  r: number,
+  setPixel: setPixelFn
+) {
   var x = -r,
     y = 0,
     err = 2 - 2 * r; /* bottom left to top right */
@@ -24,12 +27,13 @@ export function circle(xm: number, ym: number, r: number, setPixel) {
 
 /**
  * Draw a black anti-aliased circle on white background
- * @param  {number} xm
- * @param  {number} ym
- * @param  {number} r
- * @param  {setPixelAlpha} setPixelAA
  */
-export function circleAA(xm: number, ym: number, r: number, setPixelAA) {
+export function circleAA(
+  xm: number,
+  ym: number,
+  r: number,
+  setPixelAA: setPixelAlphaFn
+) {
   var x = -r,
     y = 0; /* II. quadrant from bottom left to top right */
   var i,

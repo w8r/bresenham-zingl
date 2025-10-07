@@ -199,15 +199,15 @@ export function cubicBezierSegment(
  * @param  {setPixelAA} setPixelAA
  */
 export function cubicBezierSegmentAA(
-  x0,
-  y0,
-  x1,
-  y1,
-  x2,
-  y2,
-  x3,
-  y3,
-  setPixelAA
+  x0: number,
+  y0: number,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  x3: number,
+  y3: number,
+  setPixelAA: setPixelAlphaFn
 ) {
   let f,
     fx,

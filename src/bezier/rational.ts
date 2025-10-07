@@ -1,5 +1,6 @@
 import assert from "../assert";
 import { line, lineAA } from "../line";
+import { setPixelAlphaFn, setPixelFn } from "../types";
 
 /**
  * plot any quadratic rational Bezier curve
@@ -20,7 +21,7 @@ export function quadRationalBezier(
   x2: number,
   y2: number,
   w: number,
-  setPixel
+  setPixel: setPixelFn
 ) {
   var x = x0 - 2 * x1 + x2,
     y = y0 - 2 * y1 + y2;
@@ -146,7 +147,7 @@ export function quadRationalBezierSegment(
   x2: number,
   y2: number,
   w: number,
-  setPixel
+  setPixel: setPixelFn
 ) {
   var sx = x2 - x1,
     sy = y2 - y1; /* relative values for checks */
@@ -246,14 +247,14 @@ export function quadRationalBezierSegment(
  * @param  {setPixelAlpha} setPixelAA
  */
 export function quadRationalBezierSegmentAA(
-  x0,
-  y0,
-  x1,
-  y1,
-  x2,
-  y2,
-  w,
-  setPixelAA
+  x0: number,
+  y0: number,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  w: number,
+  setPixelAA: setPixelAlphaFn
 ) {
   var sx = x2 - x1,
     sy = y2 - y1; /* relative values for checks */
