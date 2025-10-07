@@ -1,13 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "module": "ES2022",
+    "outDir": "./dist",
+    "allowJs": true,
+    "target": "esnext",
+    "pretty": true,
+    "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["ES2022", "dom"],
-    "stripInternal": true,
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
     "removeComments": false,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictFunctionTypes": true,
+    "resolveJsonModule": true
   },
-  "include": ["./src/index.ts"]
+  "formatCodeOptions": {
+    "indentSize": 2,
+    "tabSize": 2
+  },
+  "include": ["./src/**/*.ts", "./test/**/*.ts"],
+  "exclude": ["node_modules", "./src/main.ts"]
 }

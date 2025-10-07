@@ -130,7 +130,7 @@ export function quadBezierSegment(
     do {
       setPixel(x0, y0); /* plot curve */
       if (x0 == x2 && y0 == y2) return; /* last pixel -> curve finished */
-      y1 = 2 * err < dx; /* save value for test of y step */
+      y1 = Number(2 * err < dx); /* save value for test of y step */
       if (2 * err > dy) {
         x0 += sx;
         dx -= xy;
@@ -284,7 +284,7 @@ export function quadBezierSegmentAA(
       if (x0 == x2 || y0 == y2) break; /* last pixel -> curve finished */
       x1 = x0;
       cur = dx - err;
-      y1 = 2 * err + dy < 0;
+      y1 = Number(2 * err + dy < 0);
       if (2 * err + dx > 0) {
         /* x step */
         if (err - dy < ed)

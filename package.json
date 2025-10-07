@@ -14,7 +14,10 @@
   "scripts": {
     "start": "vite dev",
     "build": "vite build && npm run types",
-    "types": "tsc -d --emitDeclarationOnly --declarationDir dist/types"
+    "build:demo": "vite build --mode demo",
+    "types": "tsc -d --emitDeclarationOnly --declarationDir dist/types",
+    "prepublishOnly": "npm run build:demo",
+    "publish": "gh-pages -d demo --nojekyll"
   },
   "repository": {
     "type": "git",
@@ -32,6 +35,6 @@
   "devDependencies": {
     "gh-pages": "^6.2.0",
     "typescript": "5.9.3",
-    "vite": "^6.0.6"
+    "vite": "7.1.9"
   }
 }
