@@ -5,6 +5,7 @@ export default defineConfig(({ mode }) => {
 
   if (isDemo) {
     return {
+      base: "./",
       build: {
         outDir: "demo",
       },
