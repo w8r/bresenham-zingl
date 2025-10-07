@@ -16,8 +16,7 @@
     "build": "vite build && npm run types",
     "build:demo": "vite build --mode demo",
     "types": "tsc -d --emitDeclarationOnly --declarationDir dist/types",
-    "prepublishOnly": "npm run build:demo",
-    "publish": "gh-pages -d demo --nojekyll"
+    "publish:demo": "npm run build:demo && gh-pages -d demo --nojekyll"
   },
   "repository": {
     "type": "git",
