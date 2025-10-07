@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "lib": ["ES2022", "dom"],
+    "stripInternal": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "strictNullChecks": true
+  },
+  "include": ["./src/index.ts"]
+}

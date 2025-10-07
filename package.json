@@ -5,17 +5,16 @@
   "description": "Bresenham rasterisation algorithms by Alois Zingl",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
-  "browser": "dist/index.js",
-  "unpkg": "dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    }
-  },
+  "browser": "dist/index.umd.js",
+  "unpkg": "dist/index.umd.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "vite dev",
-    "build": "vite build"
+    "build": "vite build && npm run types",
+    "types": "tsc -d --emitDeclarationOnly --declarationDir dist/types"
   },
   "repository": {
     "type": "git",
@@ -32,6 +31,7 @@
   "homepage": "https://github.com/w8r/bresenham-zingl#readme",
   "devDependencies": {
     "gh-pages": "^6.2.0",
+    "typescript": "5.9.3",
     "vite": "^6.0.6"
   }
 }
