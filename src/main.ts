@@ -1,4 +1,7 @@
-import * as bresenham from "./";
+// //import * as bresenham from "./index";
+import { quadBezierAA, cubicBezierAA, circle } from "./";
+
+console.log({ quadBezierAA, cubicBezierAA, circle });
 
 const screenWidth = document.documentElement.clientWidth;
 const screenHeight = document.documentElement.clientHeight;
@@ -59,19 +62,19 @@ var data, nodesMap;
 var tw = 2,
   thw = tw / 2;
 
-function setPixel(x, y, a) {
+function setPixel(x: number, y: number, a: number) {
   ctx.fillRect(x - thw, y - thw, tw, tw);
 }
 
-function setPixelAA(x, y, a) {
+function setPixelAA(x: number, y: number, a: number) {
   ctx.fillRect(x - thw, y - thw, tw, tw);
 }
 
 const getQuadraticControlPoint = (
-  x1,
-  y1,
-  x2,
-  y2,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
   cx = 2,
   cy = 1.5,
   dest = { x: 0, y: 0 }
@@ -100,18 +103,11 @@ function render() {
       ctx.lineTo(t.x, t.y);
     } else {
       const cp = getQuadraticControlPoint(s.x, s.y, t.x, t.y);
-      bresenham.quadBezierAA(
-        ~~s.x,
-        ~~s.y,
-        ~~cp.x,
-        ~~cp.y,
-        ~~t.x,
-        ~~t.y,
-        setPixelAA
-      );
+      quadBezierAA(~~s.x, ~~s.y, ~~cp.x, ~~cp.y, ~~t.x, ~~t.y, setPixelAA);
       //ctx.quadraticCurveTo(cp.x, cp.y, t.x, t.y);
     }
   });
+  console.log("finished drawing edges");
   // ctx.stroke();
   // ctx.closePath();
 
@@ -131,44 +127,25 @@ function render() {
   ctx.fillStyle = "#333333";
   nodes.forEach((n) => {
     ctx.moveTo(n.x + n.r, n.y);
-    bresenham.circle(n.x, n.y, n.r, setPixel);
+    circle(n.x, n.y, n.r, setPixel);
     ctx.arc(n.x, n.y, n.r, 0, 2 * Math.PI, false);
   });
 
   const m = w / 5;
   console.log(w / 4);
-  bresenham.cubicBezierAA(
-    0 + m,
-    400,
-    0 + m,
-    0,
-    w - m,
-    0,
-    w - m,
-    400,
-    setPixelAA
-  );
-  bresenham.cubicBezierAA(
-    0 + m,
-    h - 400,
-    0 + m,
-    h,
-    w - m,
-    h,
-    w - m,
-    h - 400,
-    setPixelAA
-  );
+  cubicBezierAA(0 + m, 400, 0 + m, 0, w - m, 0, w - m, 400, setPixelAA);
+  // cubicBezierAA(0 + m, h - 400, 0 + m, h, w - m, h, w - m, h - 400, setPixelAA);
   console.timeEnd("render");
 }
 
-(async () => {
-  const json = await fetch("./src/data.json").then((r) => r.json());
-  data = scaleGraphToFitBounds(json, [0, 0, w, h], 50);
-  nodesMap = data.nodes.reduce((a, n) => {
-    a[n.id] = n;
-    return a;
-  }, {});
+console.log("fetching data.json...");
 
-  render();
-})();
+const json = await fetch("data.json").then((r) => r.json());
+data = scaleGraphToFitBounds(json, [0, 0, w, h], 50);
+nodesMap = data.nodes.reduce((a, n) => {
+  a[n.id] = n;
+  return a;
+}, {});
+
+render();
+// })();

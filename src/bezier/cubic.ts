@@ -243,6 +243,7 @@ export function cubicBezierSegmentAA(
   }
   x1 = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) + 1; /* line lengths */
   x2 = (x2 - x3) * (x2 - x3) + (y2 - y3) * (y2 - y3) + 1;
+
   do {
     /* loop over both ends */
     ab = xa * yb - xb * ya;
@@ -346,6 +347,7 @@ export function cubicBezierSegmentAA(
           yy += ba;
         }
       } while (fx > 0 && fy > 0); /* pixel complete? */
+
       if (2 * fy <= f) {
         /* x+ anti-aliasing pixel */
         if (py < ed) setPixelAA(x0 + sx, y0, (255 * py) / ed); /* plot curve */
@@ -386,7 +388,13 @@ export function cubicBezierSegmentAA(
     break; /* finish curve by line */
   } while (leg--); /* try other end */
   /* remaining part in case of cusp or crunode */
-  lineAA(x0, y0, x3, y3, setPixelAA);
+  lineAA(
+    Math.floor(x0),
+    Math.floor(y0),
+    Math.floor(x3),
+    Math.floor(y3),
+    setPixelAA
+  );
 }
 
 function cubicBezierGeneral(
@@ -422,6 +430,7 @@ function cubicBezierGeneral(
   let t1 = xb * xb - xa * xc;
   let t2: number;
   const t = [0, 0, 0, 0, 0];
+
   /* sub-divide curve at gradient sign changes */
   if (xa == 0) {
     /* horizontal */

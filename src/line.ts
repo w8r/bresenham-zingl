@@ -63,26 +63,26 @@ export function lineAA(
   let dx = Math.abs(x1 - x0);
   let dy = Math.abs(y1 - y0);
   let err = dx * dx + dy * dy;
-  let e2 = err == 0 ? 1 : 0xffff7f / Math.sqrt(err); /* multiplication factor */
+  let e2 = err === 0 ? 1 : 1 / Math.sqrt(err); /* multiplication factor */
 
   dx *= e2;
   dy *= e2;
   err = dx - dy; /* error value e_xy */
   for (;;) {
     /* pixel loop */
-    setPixelAA(x0, y0, Math.abs(err - dx + dy) >> 16);
+    setPixelAA(x0, y0, Math.abs(err - (dx + dy)) >> 16);
     e2 = err;
     x2 = x0;
     if (2 * e2 >= -dx) {
       /* x step */
-      if (x0 == x1) break;
+      if (x0 === x1) break;
       if (e2 + dy < 0xff0000) setPixelAA(x0, y0 + sy, (e2 + dy) >> 16);
       err -= dy;
       x0 += sx;
     }
     if (2 * e2 <= dy) {
       /* y step */
-      if (y0 == y1) break;
+      if (y0 === y1) break;
       if (dx - e2 < 0xff0000) setPixelAA(x2 + sx, y0, (dx - e2) >> 16);
       err += dx;
       y0 += sy;
