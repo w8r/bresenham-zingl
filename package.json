@@ -5,9 +5,16 @@
   "description": "Bresenham rasterisation algorithms by Alois Zingl",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
-  "browser": "dist/index.umd.js",
   "unpkg": "dist/index.umd.js",
   "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    }
+  },
   "files": [
     "dist"
   ],
