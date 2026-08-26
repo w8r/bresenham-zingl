@@ -1,6 +1,6 @@
 # Bresenham rasterisation functions by Alois Zingl
 
-![Screenshot](https://w8r.github.io/bresenham-zingl/src/bresenham-zingl.png)
+![Screenshot](./src/bresenham-zingl.png)
 
 Port of [C code](https://gist.github.com/w8r/2f57de439a736b0a079b70ed24c9a246) by Alois Zingl from this paper
 
