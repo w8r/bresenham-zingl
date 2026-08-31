@@ -1,5 +1,5 @@
 // //import * as bresenham from "./index";
-import { quadBezierAA, cubicBezierAA, circle } from "./";
+import { quadBezierAA, cubicBezierAA, circle } from "../src";
 
 console.log({ quadBezierAA, cubicBezierAA, circle });
 
