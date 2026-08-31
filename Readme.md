@@ -22,263 +22,300 @@ quadBezier(0, 0, 10, 10, 0, 10, (x, y) => console.log(x, y)); // 0,0, ...
 
 ## API
 
-### User-defined callbacks
+All coordinates are integers. All functions are pure — they only call the
+supplied callback(s) and have no side effects.
 
-### `setPixel(x, y)`
+### Callback types
 
-Use that callback to fill the pixel on canvas.
+| Type | Signature | Description |
+| ---- | --------- | ----------- |
+| `SetPixelFn` | `(x: number, y: number) => void` | Plot a single pixel at `(x, y)`. |
+| `SetPixelAlphaFn` | `(x: number, y: number, alpha: number) => void` | Plot a pixel with coverage. `alpha` is **0 = fully opaque, 255 = fully transparent** (Zingl convention). |
+| `SetHLineFn` | `(x0: number, x1: number, y: number) => void` | Fill a horizontal span from `x0` to `x1` (inclusive) on row `y`. Used by filled shapes. |
 
-### Parameters
+---
 
-| parameter | type   | description |
-| --------- | ------ | ----------- |
-| `x`       | number |             |
-| `y`       | number |             |
+### Lines
 
-### `setPixelAlpha(x, y, alpha)`
+#### `line(x0, y0, x1, y1, setPixel)`
 
-Callback that would also receive the alpha value for the pixel
+Rasterise a line segment using Bresenham's algorithm.
 
-### Parameters
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point. |
+| `x1`, `y1` | `number` | End point. |
+| `setPixel` | `SetPixelFn` | Called for every pixel on the line. |
 
-| parameter | type   | description |
-| --------- | ------ | ----------- |
-| `x`       | number |             |
-| `y`       | number |             |
-| `alpha`   | number |             |
+#### `lineAA(x0, y0, x1, y1, setPixelAA)`
 
-### `line(x0, y0, x1, y1, setPixel)`
+Anti-aliased line using Wu's algorithm.
 
-Line segment rasterisation
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point. |
+| `x1`, `y1` | `number` | End point. |
+| `setPixelAA` | `SetPixelAlphaFn` | Called with coverage for each pixel. |
 
-### Parameters
+#### `lineWidth(x0, y0, x1, y1, wd, setPixelAA)`
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `setPixel` | setPixel |             |
+Anti-aliased line with a given stroke width.
 
-### `lineAA(x0, y0, x1, y1, setPixelAA)`
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point. |
+| `x1`, `y1` | `number` | End point. |
+| `wd` | `number` | Stroke width in pixels. |
+| `setPixelAA` | `SetPixelAlphaFn` | Called with coverage for each pixel. |
 
-Draw a black (0) anti-aliased line on white (255) background
+---
 
-### Parameters
+### Circles
 
-| parameter    | type          | description |
-| ------------ | ------------- | ----------- |
-| `x0`         | number        |             |
-| `y0`         | number        |             |
-| `x1`         | number        |             |
-| `y1`         | number        |             |
-| `setPixelAA` | setPixelAlpha |             |
+#### `circle(xm, ym, r, setPixel)`
 
-**Returns** `number`,
+Rasterise a circle outline (Bresenham midpoint algorithm).
 
-### `lineWidth(x0, y0, x1, y1, wd, setPixel)`
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `xm`, `ym` | `number` | Centre. |
+| `r` | `number` | Radius. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the outline. |
 
-Plot an anti-aliased line of width wd
+#### `disc(xm, ym, r, setHLine)`
 
-### Parameters
+Rasterise a filled circle (disc) using horizontal spans.
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `wd`       | number   |             |
-| `setPixel` | setPixel |             |
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `xm`, `ym` | `number` | Centre. |
+| `r` | `number` | Radius. |
+| `setHLine` | `SetHLineFn` | Called once per row to fill a horizontal span. |
 
-### `quadRationalBezierSegment(x0, y0, x1, y1, x2, y2, w, setPixel)`
+#### `circleAA(xm, ym, r, setPixelAA)`
 
-plot a limited rational Bezier segment, squared weight
+Anti-aliased circle outline.
 
-### Parameters
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `xm`, `ym` | `number` | Centre. |
+| `r` | `number` | Radius. |
+| `setPixelAA` | `SetPixelAlphaFn` | Called with coverage for each pixel. |
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `x2`       | number   |             |
-| `y2`       | number   |             |
-| `w`        | number   |             |
-| `setPixel` | setPixel |             |
+---
 
-### `quadRationalBezierSegmentAA(x0, y0, x1, y1, x2, y2, w, setPixelAA)`
+### Ellipses
 
-draw an anti-aliased rational quadratic Bezier segment, squared weight
+#### `ellipse(xm, ym, a, b, setPixel)`
 
-### Parameters
+Rasterise an axis-aligned ellipse outline.
 
-| parameter    | type          | description |
-| ------------ | ------------- | ----------- |
-| `x0`         | number        |             |
-| `y0`         | number        |             |
-| `x1`         | number        |             |
-| `y1`         | number        |             |
-| `x2`         | number        |             |
-| `y2`         | number        |             |
-| `w`          | number        |             |
-| `setPixelAA` | setPixelAlpha |             |
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `xm`, `ym` | `number` | Centre. |
+| `a` | `number` | Semi-axis along x. |
+| `b` | `number` | Semi-axis along y. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the outline. |
 
-### `rotatedEllipse(x, y, a, b, angle, setPixel)`
+#### `ellipseRect(x0, y0, x1, y1, setPixel)`
 
-Plot ellipse rotated by angle (radian)
+Rasterise an ellipse inscribed in an axis-aligned bounding rectangle (the
+ellipse touches all four sides). Equivalent to `ellipse` but specified by
+corner coordinates instead of centre + radii.
 
-### Parameters
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Top-left corner of the bounding rectangle. |
+| `x1`, `y1` | `number` | Bottom-right corner of the bounding rectangle. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the outline. |
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x`        | number   |             |
-| `y`        | number   |             |
-| `a`        | number   |             |
-| `b`        | number   |             |
-| `angle`    | number   |             |
-| `setPixel` | setPixel |             |
+#### `rotatedEllipse(x, y, a, b, angle, setPixel)`
 
-### `rotatedEllipseRect(x0, y0, x1, y1, zd, setPixel)`
+Rasterise a rotated ellipse given centre, semi-axes, and rotation angle.
+Internally delegates to `rotatedEllipseRect`.
 
-Rectangle encloMath.sing the ellipse, integer rotation angle
+> **Note:** Due to floating-point intermediate coordinates, a small line
+> artefact can appear for certain input combinations. Prefer
+> `rotatedEllipseRect` with hand-crafted integer coordinates when pixel-perfect
+> output is required.
 
-### Parameters
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x`, `y` | `number` | Centre. |
+| `a` | `number` | Semi-major axis (before rotation). |
+| `b` | `number` | Semi-minor axis (before rotation). |
+| `angle` | `number` | Rotation angle in radians. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the outline. |
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `zd`       | number   |             |
-| `setPixel` | setPixel |             |
+#### `rotatedEllipseRect(x0, y0, x1, y1, zd, setPixel)`
 
-### `ellipseRect(x0, y0, x1, y1, setPixel)`
+Rasterise a rotated ellipse specified by its bounding rectangle and a shear
+parameter. All inputs must be integers for artefact-free output.
 
-Rectangular parameter encloMath.sing the ellipse
+`zd` encodes the rotation: `w = (W·H − zd) / (2·W·H)` where `W = x1−x0`,
+`H = y1−y0`. Valid range: `|zd| ≤ W·H` (i.e. `w ∈ [0, 1]`). `zd = 0`
+produces an ordinary axis-aligned ellipse.
 
-### Parameters
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Top-left corner of the bounding rectangle (integer). |
+| `x1`, `y1` | `number` | Bottom-right corner of the bounding rectangle (integer). |
+| `zd` | `number` | Rotation/shear parameter. Must satisfy `|zd| ≤ (x1−x0)·(y1−y0)`. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the outline. |
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `setPixel` | setPixel |             |
+---
 
-### `circle(xm, ym, r, setPixel)`
+### Quadratic Bézier curves
 
-Circle rasterisation
+#### `quadBezier(x0, y0, x1, y1, x2, y2, setPixel)`
 
-### Parameters
+Rasterise any quadratic Bézier curve. Subdivides at gradient-sign changes
+and delegates to `quadBezierSegment`.
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `xm`       | number   |             |
-| `ym`       | number   |             |
-| `r`        | number   |             |
-| `setPixel` | setPixel |             |
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point P0. |
+| `x1`, `y1` | `number` | Control point P1. |
+| `x2`, `y2` | `number` | End point P2. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the curve. |
 
-### `circleAA(xm, ym, r, setPixelAA)`
+#### `quadBezierAA(x0, y0, x1, y1, x2, y2, setPixelAA)`
 
-Draw a black anti-aliased circle on white background
+Anti-aliased version of `quadBezier`.
 
-### Parameters
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point P0. |
+| `x1`, `y1` | `number` | Control point P1. |
+| `x2`, `y2` | `number` | End point P2. |
+| `setPixelAA` | `SetPixelAlphaFn` | Called with coverage for each pixel. |
 
-| parameter    | type          | description |
-| ------------ | ------------- | ----------- |
-| `xm`         | number        |             |
-| `ym`         | number        |             |
-| `r`          | number        |             |
-| `setPixelAA` | setPixelAlpha |             |
+#### `quadBezierSegment(x0, y0, x1, y1, x2, y2, setPixel)` _(low-level)_
 
-### `quadBezierSegment(x0, y0, x1, y1, x2, y2, setPixel)`
+Rasterise a **limited** quadratic Bézier segment. The segment must satisfy the
+Zingl slope constraint: the gradient must not change sign between P0→P1 and
+P1→P2 in either axis. Use `quadBezier` for arbitrary curves.
 
-plot a limited quadratic Bezier segment
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point. |
+| `x1`, `y1` | `number` | Control point. |
+| `x2`, `y2` | `number` | End point. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the curve. |
 
-### Parameters
+#### `quadBezierSegmentAA(x0, y0, x1, y1, x2, y2, setPixelAA)` _(low-level)_
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `x2`       | number   |             |
-| `y2`       | number   |             |
-| `setPixel` | setPixel |             |
+Anti-aliased version of `quadBezierSegment`.
 
-### `quadBezierAA(x0, y0, x1, y1, x2, y2, setPixelAA)`
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point. |
+| `x1`, `y1` | `number` | Control point. |
+| `x2`, `y2` | `number` | End point. |
+| `setPixelAA` | `SetPixelAlphaFn` | Called with coverage for each pixel. |
 
-Plot any quadratic Bezier curve with anti-alias
+---
 
-### Parameters
+### Rational quadratic Bézier curves
 
-| parameter    | type          | description |
-| ------------ | ------------- | ----------- |
-| `x0`         | number        |             |
-| `y0`         | number        |             |
-| `x1`         | number        |             |
-| `y1`         | number        |             |
-| `x2`         | number        |             |
-| `y2`         | number        |             |
-| `setPixelAA` | setPixelAlpha |             |
+#### `quadRationalBezier(x0, y0, x1, y1, x2, y2, w, setPixel)`
 
-### `quadBezierSegmentAA(x0, y0, x1, y1, x2, y2, setPixelAA)`
+Rasterise any rational quadratic Bézier curve (conic section). `w < 1` gives
+an elliptic arc, `w = 1` a parabola, `w > 1` a hyperbolic arc. Subdivides at
+gradient-sign changes and delegates to `quadRationalBezierSegment`.
 
-Draw an limited anti-aliased quadratic Bezier segment
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point P0. |
+| `x1`, `y1` | `number` | Control point P1. |
+| `x2`, `y2` | `number` | End point P2. |
+| `w` | `number` | Weight (≥ 0). Controls curve type: `0 < w < 1` → elliptic arc, `w = 1` → parabola, `w > 1` → hyperbolic arc. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the curve. |
 
-### Parameters
+#### `quadRationalBezierSegment(x0, y0, x1, y1, x2, y2, w, setPixel)` _(low-level)_
 
-| parameter    | type          | description |
-| ------------ | ------------- | ----------- |
-| `x0`         | number        |             |
-| `y0`         | number        |             |
-| `x1`         | number        |             |
-| `y1`         | number        |             |
-| `x2`         | number        |             |
-| `y2`         | number        |             |
-| `setPixelAA` | setPixelAlpha |             |
+Rasterise a **limited** rational quadratic Bézier segment (squared weight).
+Inputs must be integer coordinates satisfying the Zingl slope constraint.
 
-### `cubicBezier(x0, y0, x1, y1, x2, y2, x3, y3, setPixel)`
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point. |
+| `x1`, `y1` | `number` | Control point. |
+| `x2`, `y2` | `number` | End point. |
+| `w` | `number` | Squared weight. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the curve. |
 
-plot any cubic Bezier curve
+#### `quadRationalBezierSegmentAA(x0, y0, x1, y1, x2, y2, w, setPixelAA)` _(low-level)_
 
-### Parameters
+Anti-aliased version of `quadRationalBezierSegment`.
 
-| parameter  | type     | description |
-| ---------- | -------- | ----------- |
-| `x0`       | number   |             |
-| `y0`       | number   |             |
-| `x1`       | number   |             |
-| `y1`       | number   |             |
-| `x2`       | number   |             |
-| `y2`       | number   |             |
-| `x3`       | number   |             |
-| `y3`       | number   |             |
-| `setPixel` | setPixel |             |
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point. |
+| `x1`, `y1` | `number` | Control point. |
+| `x2`, `y2` | `number` | End point. |
+| `w` | `number` | Squared weight. |
+| `setPixelAA` | `SetPixelAlphaFn` | Called with coverage for each pixel. |
 
-### `cubicBezierAA(x0, y0, x1, y1, x2, y2, x3, y3, setPixelAA)`
+---
 
-plot any cubic Bezier curve
+### Cubic Bézier curves
 
-### Parameters
+#### `cubicBezier(x0, y0, x1, y1, x2, y2, x3, y3, setPixel)`
 
-| parameter  | type          | description |
-| ---------- | ------------- | ----------- |
-| `x0`       | number        |             |
-| `y0`       | number        |             |
-| `x1`       | number        |             |
-| `y1`       | number        |             |
-| `x2`       | number        |             |
-| `y2`       | number        |             |
-| `x3`       | number        |             |
-| `y3`       | number        |             |
-| `setPixel` | setPixelAlpha |             |
+Rasterise any cubic Bézier curve. Subdivides at gradient-sign changes and
+delegates to `cubicBezierSegment`.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point P0. |
+| `x1`, `y1` | `number` | Control point P1. |
+| `x2`, `y2` | `number` | Control point P2. |
+| `x3`, `y3` | `number` | End point P3. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the curve. |
+
+#### `cubicBezierAA(x0, y0, x1, y1, x2, y2, x3, y3, setPixelAA)`
+
+Anti-aliased version of `cubicBezier`.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point P0. |
+| `x1`, `y1` | `number` | Control point P1. |
+| `x2`, `y2` | `number` | Control point P2. |
+| `x3`, `y3` | `number` | End point P3. |
+| `setPixelAA` | `SetPixelAlphaFn` | Called with coverage for each pixel. |
+
+#### `cubicBezierSegment(x0, y0, x1, y1, x2, y2, x3, y3, setPixel)` _(low-level)_
+
+Rasterise a **limited** cubic Bézier segment. The segment must satisfy both
+Zingl slope constraints:
+
+- `(x1−x0)·(x2−x3) ≤ 0` — x-slopes at P0 and P3 point in opposite directions
+- `(y1−y0)·(y2−y3) ≤ 0` — same for y
+
+Use `cubicBezier` for arbitrary curves; the higher-level function handles
+subdivision automatically. Throws if constraints are violated.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point. |
+| `x1`, `y1` | `number` | Control point P1. |
+| `x2`, `y2` | `number` | Control point P2. |
+| `x3`, `y3` | `number` | End point. |
+| `setPixel` | `SetPixelFn` | Called for each pixel on the curve. |
+
+#### `cubicBezierSegmentAA(x0, y0, x1, y1, x2, y2, x3, y3, setPixelAA)` _(low-level)_
+
+Anti-aliased version of `cubicBezierSegment`. Same slope constraints apply.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `x0`, `y0` | `number` | Start point. |
+| `x1`, `y1` | `number` | Control point P1. |
+| `x2`, `y2` | `number` | Control point P2. |
+| `x3`, `y3` | `number` | End point. |
+| `setPixelAA` | `SetPixelAlphaFn` | Called with coverage for each pixel. |
 
 ## License
 
