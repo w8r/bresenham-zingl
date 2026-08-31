@@ -1,41 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Bresenham rasterisation by Alois Zingl</title>
-
-    <style type="text/css">
-      body,
-      html,
-      #canvas {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bresenham-zingl — shape gallery</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
       body {
-        background: #ddd;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: #e8e8e8;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 24px;
+        font-family: "SF Mono", "Fira Code", monospace;
+        min-height: 100vh;
       }
-      #canvas {
-        background: #fff;
-      }
-
-      #control {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: #fff;
-        box-shadow: 0 0 5px rgba(80, 80, 80, 0.5);
-        padding: 5px 10px;
-        border-radius: 5px;
-      }
-
-      #control p {
-        padding: 0;
-        margin: 4px;
+      canvas {
+        display: block;
+        image-rendering: pixelated;
+        border-radius: 10px;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-BubiJHz_.js"></script>
+    <script type="module" crossorigin src="./assets/index-B_XOAqn9.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/cubic-CAKV7eJQ.js">
   </head>
   <body>
     <canvas id="canvas"></canvas>
