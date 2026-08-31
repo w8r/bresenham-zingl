@@ -5,9 +5,17 @@ export default defineConfig(({ mode }) => {
 
   if (isDemo) {
     return {
+      root: "demo",
       base: "./",
       build: {
-        outDir: "demo",
+        outDir: "../dist/docs",
+        emptyOutDir: true,
+        rollupOptions: {
+          input: {
+            index: "demo/index.html",
+            graph: "demo/graph.html",
+          },
+        },
       },
     };
   }

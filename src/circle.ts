@@ -1,4 +1,4 @@
-import { setPixelAlphaFn, setPixelFn } from "./types";
+import { setHLineFn, setPixelAlphaFn, setPixelFn } from "./types";
 
 /**
  * Circle rasterisation
@@ -22,6 +22,27 @@ export function circle(
     if (r > x || err > y)
       /* e_xy+e_x > 0 or no 2nd y-step */
       err += ++x * 2 + 1; /* -> x-step now */
+  } while (x < 0);
+}
+
+/**
+ * Filled circle (disc) rasterisation
+ */
+export function disc(
+  xm: number,
+  ym: number,
+  r: number,
+  setHLine: setHLineFn
+) {
+  var x = -r,
+    y = 0,
+    err = 2 - 2 * r;
+  do {
+    setHLine(xm + x, xm - x, ym + y);
+    if (y !== 0) setHLine(xm + x, xm - x, ym - y);
+    r = err;
+    if (r <= y) err += ++y * 2 + 1;
+    if (r > x || err > y) err += ++x * 2 + 1;
   } while (x < 0);
 }
 

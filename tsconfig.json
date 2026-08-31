@@ -18,6 +18,6 @@
     "indentSize": 2,
     "tabSize": 2
   },
-  "include": ["./src/**/*.ts", "./test/**/*.ts"],
-  "exclude": ["node_modules", "./src/main.ts"]
+  "include": ["./src/**/*.ts", "./test/**/*.ts", "demo/graph.ts"],
+  "exclude": ["node_modules", "demo/graph.ts"]
 }

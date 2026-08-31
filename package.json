@@ -19,11 +19,11 @@
     "dist"
   ],
   "scripts": {
-    "start": "vite dev",
+    "start": "vite dev demo",
     "build": "vite build && npm run types",
     "build:demo": "vite build --mode demo",
     "types": "tsc -d --emitDeclarationOnly --declarationDir dist/types",
-    "publish:demo": "npm run build:demo && gh-pages -d demo --nojekyll"
+    "publish:demo": "npm run build:demo && gh-pages -d dist/docs --nojekyll"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,8 @@
   },
   "homepage": "https://github.com/w8r/bresenham-zingl#readme",
   "devDependencies": {
+    "@types/dat.gui": "^0.7.13",
+    "dat.gui": "^0.7.9",
     "gh-pages": "^6.2.0",
     "typescript": "5.9.3",
     "vite": "7.1.9"
